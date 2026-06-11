@@ -1,4 +1,3 @@
-// Problem: Implement `DeepPartial<T>`.
-// - Recursively make all properties optional.
-
-export type DeepPartial<T> = unknown;
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
