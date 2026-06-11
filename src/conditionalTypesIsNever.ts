@@ -1,4 +1,1 @@
-// Problem: Implement `IsNever<T>`.
-// - true if T is never, else false.
-
-export type IsNever<T> = unknown;
+export type IsNever<T> = T extends never ? true : false;
