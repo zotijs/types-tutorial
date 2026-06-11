@@ -1,9 +1,17 @@
-// Problem 1: `DeepMerge<A, B>`
-// - Deeply merge two object types.
+export type DeepMerge<A, B> = {
+  [K in keyof A | keyof B]: K extends keyof A
+    ? K extends keyof B
+      ? A[K] extends object
+        ? B[K] extends object
+          ? DeepMerge<A[K], B[K]>
+          : B[K]
+        : B[K]
+      : A[K]
+    : K extends keyof B
+      ? B[K]
+      : never;
+};
 
-export type DeepMerge<A, B> = unknown;
-
-// Problem 2: `OmitNever<T>`
-// - Remove keys whose values are never.
-
-export type OmitNever<T> = unknown;
+export type OmitNever<T> = {
+  [K in keyof T as T[K] extends never ? never : K]: T[K];
+};
