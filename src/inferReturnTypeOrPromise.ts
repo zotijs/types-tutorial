@@ -1,6 +1,7 @@
-// Problem: Implement `ReturnTypeOrPromise<T>`.
-// - If T is a function returning Promise<R>, produce R.
-// - If T is a function returning R, produce R.
-// - Otherwise, never.
-
-export type ReturnTypeOrPromise<T> = unknown;
+export type ReturnTypeOrPromise<T> = T extends (
+  ...args: unknown[]
+) => Promise<infer R>
+  ? R
+  : T extends (...args: unknown[]) => infer R
+    ? R
+    : never;
